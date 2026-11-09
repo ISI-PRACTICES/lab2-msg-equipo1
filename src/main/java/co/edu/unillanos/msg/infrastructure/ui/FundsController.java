@@ -16,5 +16,14 @@ public class FundsController {
         this.estimateFunds = estimateFunds;
     }
     
+    @FXML
+    private void onEstimate() {
+        try {
+            totalLabel.setText(MoneyFormat.format(estimateFunds.execute()));
+        } catch (IllegalStateException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.showAndWait();
+        }
+    }
 
 }
