@@ -3,6 +3,8 @@ package co.edu.unillanos.msg.application.usecase;
 import co.edu.unillanos.msg.application.port.InvestmentRepository;
 import co.edu.unillanos.msg.application.port.MortgageRepository;
 import co.edu.unillanos.msg.application.port.OperatingExpensesRepository;
+import co.edu.unillanos.msg.domain.Investment;
+import co.edu.unillanos.msg.domain.Mortgage;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -39,23 +41,46 @@ public final class EstimateFundsForWeek {
                 .subtract(totalEscrowPaid());
     }
 
+    /** Gasto operativo de la semana. */
+    private BigDecimal weeklyOperatingExpenses() {
+        BigDecimal weeklyOperatingExpensesCalc = expenses.current().weeklyAmount();
+        return weeklyOperatingExpensesCalc;
+ //       throw new UnsupportedOperationException("TODO");
+    }
+
     /** Suma del rendimiento semanal de todas las inversiones. */
     private BigDecimal totalInvestmentIncome() {
-        throw new UnsupportedOperationException("TODO");
+        BigDecimal total = BigDecimal.ZERO;
+
+        for (Investment investment : investments.findAll()) {
+            total = total.add(investment.weeklyReturn());
+        }
+
+        return total;
+//        throw new UnsupportedOperationException("TODO");
     }
 
     /** Suma del aporte semanal de todas las parejas. */
     private BigDecimal totalCoupleContributions() {
-        throw new UnsupportedOperationException("TODO");
-    }
+        BigDecimal total = BigDecimal.ZERO;
 
-    /** Gasto operativo de la semana. */
-    private BigDecimal weeklyOperatingExpenses() {
-        throw new UnsupportedOperationException("TODO");
+        for (Mortgage mortgage : mortgages.findAll()) {
+            total = total.add(mortgage.weeklyCoupleContribution());
+        }
+
+        return total;
+        //    throw new UnsupportedOperationException("TODO");
     }
 
     /** Suma del impuesto y seguro semanal de todas las hipotecas (RN8). */
     private BigDecimal totalEscrowPaid() {
-        throw new UnsupportedOperationException("TODO");
+        BigDecimal total = BigDecimal.ZERO;
+
+        for (Mortgage mortgage : mortgages.findAll()) {
+            total = total.add(mortgage.weeklyEscrow());
+        }
+
+        return total;
+//        throw new UnsupportedOperationException("TODO");
     }
 }
