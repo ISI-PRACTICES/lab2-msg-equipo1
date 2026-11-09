@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public final class Mortgage {
 
-    private static final BigDecimal WEEKS_PER_YEAR = new BigDecimal("52");
+    static final BigDecimal WEEKS_PER_YEAR = new BigDecimal("52");
     private static final double MAX_INCOME_ALLOWED = 0.28;
     // TODO (RN4): declare aquí, una sola vez y con nombre, el porcentaje máximo
     //             del ingreso que aporta la pareja (28 %).

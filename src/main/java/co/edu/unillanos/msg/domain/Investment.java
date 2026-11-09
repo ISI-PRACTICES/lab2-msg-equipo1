@@ -1,7 +1,10 @@
 package co.edu.unillanos.msg.domain;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
+
+import static co.edu.unillanos.msg.domain.Mortgage.WEEKS_PER_YEAR;
 
 /**
  * Inversión de la MSG Foundation.
@@ -36,6 +39,7 @@ public final class Investment {
 
     /** RN6: rendimiento anual esperado / 52, en dólares con 2 decimales. */
     public BigDecimal weeklyReturn() {
-        throw new UnsupportedOperationException("TODO");
+        BigDecimal weeklyReturnCalculated = annualExpectedReturn.divide(WEEKS_PER_YEAR, 2, RoundingMode.HALF_EVEN);
+        return weeklyReturnCalculated;
     }
 }
